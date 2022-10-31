@@ -1,0 +1,28 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+commonLabels:
+  environment: development
+
+configMapGenerator:
+  - name: application-configuration
+    behavior: merge
+    files:
+      - application-development.properties
+
+resources:
+  - namespace.yaml
+  - ../../base
+
+namespace: development
+
+patches:
+  - target:
+      kind: Deployment
+      name: quarkus-demo
+    patch: |-
+      - op: add
+        path: "/spec/template/spec/containers/0/env/-"
+        value:
+          name: "QUARKUS_PROFILE"
+          value: "development"

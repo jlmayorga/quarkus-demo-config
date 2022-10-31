@@ -6,9 +6,8 @@ metadata:
   labels:
     app: quarkus-demo
   name: quarkus-demo
-  namespace: default
 spec:
-#  host: quarkus-demo-default.apps.cluster-kn8cr.kn8cr.sandbox1770.opentlc.com
+  #  host: quarkus-demo-default.apps.cluster-kn8cr.kn8cr.sandbox1770.opentlc.com
   port:
     targetPort: 8080
   to:
