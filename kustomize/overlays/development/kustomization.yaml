@@ -5,24 +5,28 @@ commonLabels:
   environment: development
 
 configMapGenerator:
-  - name: application-configuration
-    behavior: merge
-    files:
-      - application-development.properties
+- behavior: merge
+  files:
+  - application-development.properties
+  name: application-configuration
 
 resources:
-  - namespace.yaml
-  - ../../base
+- namespace.yaml
+- ../../base
 
-namespace: development
+namespace: kustomize-development
 
 patches:
-  - target:
-      kind: Deployment
-      name: quarkus-demo
-    patch: |-
-      - op: add
-        path: "/spec/template/spec/containers/0/env/-"
-        value:
-          name: "QUARKUS_PROFILE"
-          value: "development"
+- patch: |-
+    - op: add
+      path: "/spec/template/spec/containers/0/env/-"
+      value:
+        name: "QUARKUS_PROFILE"
+        value: "development"
+  target:
+    kind: Deployment
+    name: quarkus-demo
+
+images:
+- name: quay.io/jmayorgarh/quarkus-demo
+  newTag: 1.0.0
