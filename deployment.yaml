@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    alpha.image.policy.openshift.io/resolve-names: '*'
+    app.openshift.io/route-disabled: "false"
+    app.openshift.io/vcs-ref: ""
+    app.openshift.io/vcs-uri: https://github.com/devfile-samples/devfile-sample-code-with-quarkus.git
+    deployment.kubernetes.io/revision: "2"
+    image.openshift.io/triggers: '[{"from":{"kind":"ImageStreamTag","name":"code-with-quarkus:latest","namespace":"default"},"fieldPath":"spec.template.spec.containers[?(@.name==\"code-with-quarkus\")].image","pause":"false"}]'
+    isFromDevfile: "true"
+    openshift.io/generated-by: OpenShiftWebConsole
+  labels:
+    app: code-with-quarkus
+    app.kubernetes.io/component: code-with-quarkus
+    app.kubernetes.io/instance: code-with-quarkus
+    app.kubernetes.io/name: code-with-quarkus
+    app.kubernetes.io/part-of: sample-app
+    app.openshift.io/runtime: code-with-quarkus
+  name: code-with-quarkus
+  namespace: default
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: code-with-quarkus
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: code-with-quarkus
+        deploymentconfig: code-with-quarkus
+    spec:
+      containers:
+      - env:
+        - name: DEBUG_PORT
+          value: "5858"
+        - name: PROJECTS_ROOT
+          value: /projects
+        - name: PROJECT_SOURCE
+          value: /projects
+        image: image-registry.openshift-image-registry.svc:5000/default/code-with-quarkus@sha256:f916d8888fc799bb36e288a69ee6adf73faac5077179781ca826f1ff4b5419b1
+        imagePullPolicy: Always
+        name: code-with-quarkus
+        ports:
+        - containerPort: 8080
+          name: 8080-tcp
+          protocol: TCP
+        resources:
+          limits:
+            memory: 512Mi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      terminationGracePeriodSeconds: 30

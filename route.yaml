@@ -1,0 +1,24 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  annotations:
+    isFromDevfile: "true"
+    openshift.io/host.generated: "true"
+  labels:
+    app: code-with-quarkus
+    app.kubernetes.io/component: code-with-quarkus
+    app.kubernetes.io/instance: code-with-quarkus
+    app.kubernetes.io/name: code-with-quarkus
+    app.kubernetes.io/part-of: sample-app
+    app.openshift.io/runtime: code-with-quarkus
+  name: code-with-quarkus
+  namespace: default
+spec:
+  host: code-with-quarkus-default.apps.cluster-kn8cr.kn8cr.sandbox1770.opentlc.com
+  port:
+    targetPort: "8081"
+  to:
+    kind: Service
+    name: code-with-quarkus
+    weight: 100
+  wildcardPolicy: None
