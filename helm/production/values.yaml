@@ -1,0 +1,8 @@
+---
+environment: production
+app:
+  quarkusProfile: production
+  image: quay.io/jmayorgarh/quarkus-demo:1.0.0
+  commonLabels:
+    environment: production
+

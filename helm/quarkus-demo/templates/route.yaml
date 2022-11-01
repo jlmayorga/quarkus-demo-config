@@ -1,0 +1,18 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  annotations:
+    openshift.io/host.generated: "true"
+  labels:
+    app: quarkus-demo
+    {{ .Values.app.commonLabels | toYaml}}
+  name: quarkus-demo
+spec:
+  #  host: quarkus-demo-default.apps.cluster-kn8cr.kn8cr.sandbox1770.opentlc.com
+  port:
+    targetPort: 8080
+  to:
+    kind: Service
+    name: quarkus-demo
+    weight: 100
+  wildcardPolicy: None

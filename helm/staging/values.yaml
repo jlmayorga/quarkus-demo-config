@@ -1,0 +1,8 @@
+---
+environment: staging
+app:
+  quarkusProfile: staging
+  image: quay.io/jmayorgarh/quarkus-demo:1.0.0
+  commonLabels:
+    environment: staging
+
