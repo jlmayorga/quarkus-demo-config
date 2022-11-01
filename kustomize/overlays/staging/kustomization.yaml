@@ -14,7 +14,7 @@ resources:
   - namespace.yaml
   - ../../base
 
-namespace: staging
+namespace: kustomize-staging
 
 patches:
   - target:
