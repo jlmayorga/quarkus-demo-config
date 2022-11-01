@@ -3,8 +3,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    app.quarkus.io/commit-id: db5791fd537907ee2f6228f72063b2389de17f43
-    app.quarkus.io/build-timestamp: 2022-10-31 - 16:56:19 +0000
     prometheus.io/scrape: "true"
     prometheus.io/path: /q/metrics
     prometheus.io/port: "8080"
@@ -12,6 +10,7 @@ metadata:
   labels:
     app.kubernetes.io/version: 1.0.0-SNAPSHOT
     app.kubernetes.io/name: quarkus-demo
+    {{ .Values.app.commonLabels | toYaml}}
   name: quarkus-demo
 spec:
   replicas: 1
@@ -22,8 +21,6 @@ spec:
   template:
     metadata:
       annotations:
-        app.quarkus.io/commit-id: db5791fd537907ee2f6228f72063b2389de17f43
-        app.quarkus.io/build-timestamp: 2022-10-31 - 16:56:19 +0000
         prometheus.io/scrape: "true"
         prometheus.io/path: /q/metrics
         prometheus.io/port: "8080"
@@ -38,33 +35,38 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.namespace
+            - name: QUARKUS_PROFILE
+              value: {{ .Values.app.quarkusProfile }}
           image: {{ .Values.app.image }}
           imagePullPolicy: Always
           livenessProbe:
-            failureThreshold: {{ .Values.app.livenessProbe.failureThreshold }}
+            failureThreshold: 3
             httpGet:
-              path: {{ .Values.app.livenessProbe.httpGet.path }}
+              path: /q/health/live
               port: 8080
               scheme: HTTP
-            initialDelaySeconds: {{ .Values.app.livenessProbe.initialDelaySeconds }}
-            periodSeconds: {{ .Values.app.livenessProbe.periodSeconds }}
-            successThreshold: {{ .Values.app.livenessProbe.successThreshold }}
-            timeoutSeconds: {{ .Values.app.livenessProbe.timeoutSeconds }}
+            initialDelaySeconds: 0
+            periodSeconds: 30
+            successThreshold: 1
+            timeoutSeconds: 10
           name: quarkus-demo
+          volumeMounts:
+            - name: app-config
+              mountPath: /deployments/config
           ports:
             - containerPort: 8080
               name: http
               protocol: TCP
           readinessProbe:
-            failureThreshold: {{ .Values.app.readinessProbe.failureThreshold }}
+            failureThreshold: 3
             httpGet:
-              path: {{ .Values.app.readinessProbe.httpGet.path }}
+              path: /q/health/ready
               port: 8080
               scheme: HTTP
-            initialDelaySeconds: {{ .Values.app.readinessProbe.initialDelaySeconds }}
-            periodSeconds: {{ .Values.app.readinessProbe.periodSeconds }}
-            successThreshold: {{ .Values.app.readinessProbe.successThreshold }}
-            timeoutSeconds: {{ .Values.app.readinessProbe.timeoutSeconds }}
+            initialDelaySeconds: 0
+            periodSeconds: 30
+            successThreshold: 1
+            timeoutSeconds: 10
           resources:
             limits:
               cpu: 1000m
@@ -72,3 +74,7 @@ spec:
             requests:
               cpu: 250m
               memory: 64Mi
+      volumes:
+        - name: app-config
+          configMap:
+            name: application-configuration

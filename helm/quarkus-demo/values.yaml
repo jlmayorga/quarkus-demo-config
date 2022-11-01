@@ -1,20 +1,8 @@
 ---
+environment: development
 app:
-  serviceType: ClusterIP
-  livenessProbe:
-    failureThreshold: 3
-    periodSeconds: 30
-    timeoutSeconds: 10
-    successThreshold: 1
-    initialDelaySeconds: 0
-    httpGet:
-      path: /q/health/live
-  image: jlmayorga/quarkus-demo:1.0.0-SNAPSHOT
-  readinessProbe:
-    failureThreshold: 3
-    timeoutSeconds: 10
-    periodSeconds: 30
-    successThreshold: 1
-    initialDelaySeconds: 0
-    httpGet:
-      path: /q/health/ready
+  quarkusProfile: development
+  image: quay.io/jmayorgarh/quarkus-demo:1.0.0
+  commonLabels:
+    environment: development
+

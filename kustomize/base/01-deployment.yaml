@@ -2,8 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    app.quarkus.io/commit-id: db5791fd537907ee2f6228f72063b2389de17f43
-    app.quarkus.io/build-timestamp: 2022-10-31 - 16:56:19 +0000
     prometheus.io/scrape: "true"
     prometheus.io/path: /q/metrics
     prometheus.io/port: "8080"
@@ -21,8 +19,6 @@ spec:
   template:
     metadata:
       annotations:
-        app.quarkus.io/commit-id: db5791fd537907ee2f6228f72063b2389de17f43
-        app.quarkus.io/build-timestamp: 2022-10-31 - 16:56:19 +0000
         prometheus.io/scrape: "true"
         prometheus.io/path: /q/metrics
         prometheus.io/port: "8080"
