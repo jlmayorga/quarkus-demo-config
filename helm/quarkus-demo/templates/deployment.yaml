@@ -7,9 +7,12 @@ metadata:
     prometheus.io/path: /q/metrics
     prometheus.io/port: "8080"
     prometheus.io/scheme: http
+    app.openshift.io/vcs-uri: https://github.com/jlmayorga/quarkus-demo
   labels:
     app.kubernetes.io/version: 1.0.0-SNAPSHOT
     app.kubernetes.io/name: quarkus-demo
+    app.kubernetes.io/part-of: quarkus-demo
+    app.openshift.io/runtime: quarkus
     {{ .Values.app.commonLabels | toYaml}}
   name: quarkus-demo
 spec:
