@@ -2,10 +2,17 @@ apiVersion: v1
 entries:
   quarkus-demo:
   - apiVersion: v2
+    created: "2022-11-01T16:30:43.44229836Z"
+    digest: 335cf057e4cd3d8f4a95cf4967439cf19d849822d2dd221b003ac775e46651d0
+    name: quarkus-demo
+    urls:
+    - https://github.com/jlmayorga/quarkus-demo-config/releases/download/quarkus-demo-2.0.0/quarkus-demo-2.0.0.tgz
+    version: 2.0.0
+  - apiVersion: v2
     created: "2022-11-01T15:35:21.488735341Z"
     digest: 84437ff391a294ccfcc6e10caa7cd3cfb63793faac7ea6a5a1a36ff786581713
     name: quarkus-demo
     urls:
     - https://github.com/jlmayorga/quarkus-demo-config/releases/download/quarkus-demo-1.0.0-SNAPSHOT/quarkus-demo-1.0.0-SNAPSHOT.tgz
     version: 1.0.0-SNAPSHOT
-generated: "2022-11-01T15:35:21.488745641Z"
+generated: "2022-11-01T16:30:43.44230906Z"
