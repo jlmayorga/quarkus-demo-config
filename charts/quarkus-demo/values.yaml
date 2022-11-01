@@ -1,6 +1,7 @@
 ---
 environment: development
 app:
+
   quarkusProfile: development
   image: quay.io/jmayorgarh/quarkus-demo:1.0.0
   commonLabels:
