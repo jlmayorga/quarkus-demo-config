@@ -29,7 +29,7 @@ patches:
 
 images:
 - name: quay.io/jmayorgarh/quarkus-demo
-  newTag: 98f490badd69dbd40a93a6d070af744cf8e09317
+  newTag: 8e714a877e1281d3cad13b135ac951f657589b59
 
 commonAnnotations:
   commit-id: 9a8f01096af338ad11b053f2e7e5468b7a9959a8
